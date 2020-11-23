@@ -1,0 +1,37 @@
+model_name: faster_rcnn_coco
+data:
+  train_annotation_path: /home/wangchao/public_dataset/coco/annotations/instances_val2017.json
+  val_annotation_path: /home/wangchao/public_dataset/coco/annotations/instances_val2017.json
+  train_img_root: /home/wangchao/public_dataset/coco/images/val2017
+  val_img_root: /home/wangchao/public_dataset/coco/images/val2017
+  min_thresh: 800
+  max_thresh: 1024
+  batch_size: 4
+  num_workers: 4
+  debug: False
+  remove_blank: True
+  use_crowd: False
+
+model:
+  num_cls: 80
+  backbone: resnet50
+  freeze_bn: False
+
+optim:
+  optimizer: SGD
+  lr: 0.01
+  momentum: 0.9
+  milestones: [18,24]
+  alpha: 0.1
+  gamma: 1.0
+  cosine_weights: 1.0
+  warm_up_epoch: 1.
+  weight_decay: 0.0001
+  epochs: 24
+  sync_bn: True
+
+val:
+  interval: 1
+  weight_path: weights
+
+gpus: '0'
